@@ -8,6 +8,37 @@ public partial class BottomSheet : ContentView
     public IList<Microsoft.Maui.IView> BottomSheetContent => BottomSheetContentGrid.Children;
 
     #region Bindable Properties
+    
+    public static readonly BindableProperty CanBeDismissedByTappingOutsideProperty = BindableProperty.Create(
+        nameof(CanBeDismissedByTappingOutside),
+        typeof(bool),
+        typeof(BottomSheet),
+        true,
+        BindingMode.OneWay,
+        validateValue: (_, value) => value is bool,
+        propertyChanged:
+        (bindableObject, oldValue, newValue) =>
+        {
+            if (bindableObject is BottomSheet sheet && newValue is bool)
+            {
+                sheet.UpdateOutsideDismissArea();
+            }
+        });
+    
+    private void UpdateOutsideDismissArea()
+    {
+        if (OutsideDismissArea is not null)
+        {
+            OutsideDismissArea.IsVisible = CanBeDismissedByTappingOutside;
+            OutsideDismissArea.InputTransparent = !CanBeDismissedByTappingOutside;
+        }
+    }
+    
+    public bool CanBeDismissedByTappingOutside
+    {
+        get => (bool)GetValue(CanBeDismissedByTappingOutsideProperty);
+        set => SetValue(CanBeDismissedByTappingOutsideProperty, value);
+    }
 
     public static readonly BindableProperty SheetHeightProperty = BindableProperty.Create(
         nameof(SheetHeight),
@@ -126,4 +157,12 @@ public partial class BottomSheet : ContentView
 
     async void CloseBottomSheetButton_Tapped(System.Object sender, System.EventArgs e) =>
         await CloseBottomSheet();
+    
+    async void OutsideDismissArea_OnTapped(object sender, TappedEventArgs e)
+    {
+        if (CanBeDismissedByTappingOutside)
+        {
+            await CloseBottomSheet();
+        }
+    }
 }

@@ -34,6 +34,17 @@
                 <RowDefinition x:Name="BottomSheetRowDefinition" Height="{Binding Source={x:Reference BottomSheetControlRoot}, Path=SheetHeight, Mode=OneWay}" />
             </Grid.RowDefinitions>
 
+            <!-- Transparent area to close the sheet when tapped -->
+            <BoxView
+                x:Name="OutsideDismissArea"
+                Grid.Row="0"
+                IsVisible="{Binding Source={x:Reference BottomSheetControlRoot}, Path=CanBeDismissedByTappingOutside}"
+                BackgroundColor="Transparent">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OutsideDismissArea_OnTapped" />
+                </BoxView.GestureRecognizers>
+            </BoxView>
+            
             <!-- Close Button -->
             <Image
                 x:Name="CloseBottomSheetButton"
