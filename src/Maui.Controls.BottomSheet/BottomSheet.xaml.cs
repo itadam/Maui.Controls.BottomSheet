@@ -13,7 +13,7 @@ public partial class BottomSheet : ContentView
         nameof(CanBeDismissedByTappingOutside),
         typeof(bool),
         typeof(BottomSheet),
-        true,
+        false,
         BindingMode.OneWay,
         validateValue: (_, value) => value is bool,
         propertyChanged:
