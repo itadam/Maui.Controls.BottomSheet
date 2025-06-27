@@ -42,6 +42,11 @@ public partial class MainPage : ContentPage
         await customBottomSheet4.CloseBottomSheet();
         await DisplayAlert("Selected Movie", $"You selected \"{selectedMovie.Title}\" from Year {selectedMovie.Year}. It was a great movie. Right?", "Yes, it was!");
     }
+
+    private void AutoDismissLabel_OnTapped(object sender, TappedEventArgs e)
+    {
+        autoDismiss.IsToggled = !autoDismiss.IsToggled;
+    }
 }
 
 

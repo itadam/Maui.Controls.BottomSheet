@@ -36,13 +36,23 @@
             <Button
                 Text="Dark Theme"
                 Clicked="DarkBottomSheet_Clicked" />
+            
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="8">
+                <Label Text="Auto-close by Tapping outside" VerticalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="AutoDismissLabel_OnTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <Switch x:Name="autoDismiss" VerticalOptions="Center" />
+            </HorizontalStackLayout>
 
         </VerticalStackLayout>
 
         <!-- Simple Bottom Sheet -->
         <controls:BottomSheet
             x:Name="simpleBottomSheet"
-            HeaderText="Simple Example">
+            HeaderText="Simple Example"
+            CanBeDismissedByTappingOutside="{Binding IsToggled, Source={x:Reference autoDismiss}}">
             <controls:BottomSheet.BottomSheetContent>
                 <Label
                     Text="Hello from Bottom Sheet. This is a simple implementation with no customization."
@@ -56,7 +66,8 @@
         <controls:BottomSheet
             x:Name="customBottomSheet1"
             HeaderText="Custom Header Style"
-            HeaderStyle="{StaticResource BigRedStyle}">
+            HeaderStyle="{StaticResource BigRedStyle}"
+            CanBeDismissedByTappingOutside="{Binding IsToggled, Source={x:Reference autoDismiss}}">
             <controls:BottomSheet.BottomSheetContent>
                 <Label
                     Text="Look Ma! I can customize the header style of the Bottom Sheet."
@@ -70,7 +81,8 @@
         <controls:BottomSheet
             x:Name="customBottomSheet2"
             HeaderText="Custom Sheet Height"
-            SheetHeight="200">
+            SheetHeight="200"
+            CanBeDismissedByTappingOutside="{Binding IsToggled, Source={x:Reference autoDismiss}}">
             <controls:BottomSheet.BottomSheetContent>
                 <Label
                     Text="Now we have a Bottom Sheet with custom Sheet Height."
@@ -83,7 +95,8 @@
         <!-- Open and Close Bottom Sheet -->
         <controls:BottomSheet
             x:Name="customBottomSheet3"
-            HeaderText="Close Sheet Example">
+            HeaderText="Close Sheet Example"
+            CanBeDismissedByTappingOutside="{Binding IsToggled, Source={x:Reference autoDismiss}}">
             <controls:BottomSheet.BottomSheetContent>
                 <VerticalStackLayout
                     Spacing="24">
@@ -108,7 +121,8 @@
             x:Name="customBottomSheet4"
             HeaderText="Choose a Movie"
             HeaderStyle="{StaticResource BigRedStyle}"
-            SheetHeight="660">
+            SheetHeight="660"
+            CanBeDismissedByTappingOutside="{Binding IsToggled, Source={x:Reference autoDismiss}}">
             <controls:BottomSheet.BottomSheetContent>
                 <Grid
                     RowSpacing="16"
@@ -160,7 +174,8 @@
             x:Name="darkBottomSheet"
             HeaderText="Simple Example"
             HeaderStyle="{StaticResource BigDarkStyle}"
-            Theme="Dark">
+            Theme="Dark"
+            CanBeDismissedByTappingOutside="{Binding IsToggled, Source={x:Reference autoDismiss}}">
             <controls:BottomSheet.BottomSheetContent>
                 <Label
                     Text="Hello from Bottom Sheet. This is a bottom sheet with dark theme."
